@@ -39,32 +39,37 @@ class Complexo:
             return f'{self.real} + j{self.imag}'
         return f'{self.real} - j{abs(self.imag)}'
 
-
     def __add__(self, other):
         '''(Complexo, Complexo) -> Complexo
         Recebe uma referência `self` e outra referência `other`,
         para dois objetos da classe Fraction. Retorna uma nova fração com o
-        resultado da multiplicação self * other
+        resultado da adição self + other
         '''
 
-        real = self.real + other.real
-        imag = self.imag + other.imag
+        if type(other) is int or type(other) is float:
+            real = self.real + other
+            imag = self.imag
+        else:
+            real = self.real + other.real
+            imag = self.imag + other.imag
 
         return Complexo(real, imag)
-
 
     def __sub__(self, other):
         '''(Complexo, Complexo) -> Complexo
         Recebe uma referência `self` e outra referência `other`,
         para dois objetos da classe Fraction. Retorna uma nova fração com o
-        resultado da multiplicação self - other
+        resultado da subtração self - other
         '''
 
-        real = self.real - other.real
-        imag = self.imag - other.imag
+        if type(other) is int or type(other) is float:
+            real = self.real - other
+            imag = self.imag
+        else:
+            real = self.real - other.real
+            imag = self.imag - other.imag
 
         return Complexo(real, imag)
-
 
     def __mul__(self, other):
         '''(Complexo, Complexo) -> Complexo
@@ -73,11 +78,14 @@ class Complexo:
         resultado da multiplicação self * other
         '''
 
-        real = (self.real * other.real) - (self.imag * other.imag)
-        imag = (self.real * other.imag) + (self.imag * other.real)
+        if type(other) is int or type(other) is float:
+            real = self.real * other
+            imag = self.imag * other
+        else:
+            real = (self.real * other.real) - (self.imag * other.imag)
+            imag = (self.real * other.imag) + (self.imag * other.real)
 
         return Complexo(real, imag)
-
 
     def __truediv__(self, other):
         '''(Complexo, Complexo) -> Complexo
@@ -86,8 +94,12 @@ class Complexo:
         resultado da divisão self / other
         '''
 
-        real = (self.real * other.real) + (self.imag * other.imag) / (other.real**2 + other.imag**2)
-        imag = (self.imag * other.real) - (self.real * other.imag) / (other.real**2 + other.imag**2)
+        if type(other) is int or type(other) is float:
+            real = self.real / other
+            imag = self.imag / other
+        else:
+            real = (self.real * other.real) + (self.imag * other.imag) / (other.real**2 + other.imag**2)
+            imag = (self.imag * other.real) - (self.real * other.imag) / (other.real**2 + other.imag**2)
 
         return Complexo(real, imag)
 
