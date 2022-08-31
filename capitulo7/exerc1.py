@@ -13,15 +13,32 @@ def main():
     c2 = Complexo(7, 5)
     print(f"Atributos: real = {c2.real} e imag = {c2.imag}")
 
+    c3 = Complexo(-1, 3)
+    print(f"Atributos: real = {c3.real} e imag = {c3.imag}")
+
+    c4 = Complexo(2, -8)
+    print(f"Atributos: real = {c4.real} e imag = {c4.imag}")
+
+    c5 = Complexo(-3, -4)
+    print(f"Atributos: real = {c5.real} e imag = {c5.imag}")
+
+    i1 = 6
+
     print("\nChamadas dentro de print")
     print(f"c0 = {c0}")  # chama __str__
     print(f"c1 = {c1}")
     print(f"c2 = {c2}")
+    print(f'c3 = {c3}')
+    print(f'c4 = {c4}')
+    print(f'c5 = {c5}')
 
     print("\nResultados dos métodos")
-    print(f'C3 = {c0 + c1}')
-    print(f'C4 = {c1 * c2}')
-    print(f'C4 = {c1 - c2}')
+    print(f'({c0}) + ({c1}) = {c0 + c1}')
+    print(f'({c1}) * ({c2}) = {c1 * c2}')
+    print(f'({c1}) - ({c2}) = {c1 - c2}')
+    print(f'{i1} * ({c1}) = {i1 * c1}')
+    print(f'({c1}) / {i1} = {c1 / i1}')
+    print(f'{i1} / ({c1}) = {i1 / c1}')
 
 
 class Complexo:
@@ -36,8 +53,8 @@ class Complexo:
         '''(Complexo) -> str
         '''
         if self.imag >= 0:
-            return f'{self.real} + j{self.imag}'
-        return f'{self.real} - j{abs(self.imag)}'
+            return f'{self.real}+j{self.imag}'
+        return f'{self.real}-j{abs(self.imag)}'
 
     def __add__(self, other):
         '''(Complexo, Complexo) -> Complexo
