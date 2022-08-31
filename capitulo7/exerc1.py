@@ -55,6 +55,13 @@ class Complexo:
 
         return Complexo(real, imag)
 
+    def __radd__(self, other):
+        ''' (Complexo, int/float) -> Complexo / int/float
+        Recebe dois tipos numéricos, sendo um deles um Complexo, e inverte suas posições na operação
+        para que seja possível realizar seu cálculo
+        '''
+        return self + other
+
     def __sub__(self, other):
         '''(Complexo, Complexo) -> Complexo
         Recebe uma referência `self` e outra referência `other`,
@@ -70,6 +77,13 @@ class Complexo:
             imag = self.imag - other.imag
 
         return Complexo(real, imag)
+
+    def __rsub__(self, other):
+        ''' (Complexo, int/float) -> Complexo / int/float
+        Recebe dois tipos numéricos, sendo um deles um Complexo, e inverte suas posições na operação
+        para que seja possível realizar seu cálculo
+        '''
+        return self - other
 
     def __mul__(self, other):
         '''(Complexo, Complexo) -> Complexo
@@ -87,6 +101,13 @@ class Complexo:
 
         return Complexo(real, imag)
 
+    def __rmul__(self, other):
+        ''' (Complexo, int/float) -> Complexo / int/float
+        Recebe dois tipos numéricos, sendo um deles um Complexo, e inverte suas posições na operação
+        para que seja possível realizar seu cálculo
+        '''
+        return self * other
+
     def __truediv__(self, other):
         '''(Complexo, Complexo) -> Complexo
         Recebe uma referência `self` e outra referência `other`,
@@ -102,6 +123,13 @@ class Complexo:
             imag = (self.imag * other.real) - (self.real * other.imag) / (other.real**2 + other.imag**2)
 
         return Complexo(real, imag)
+
+    def __rtruediv__(self, other):
+        ''' (Complexo, int/float) -> Complexo / int/float
+        Recebe dois tipos numéricos, sendo um deles um Complexo, e inverte suas posições na operação
+        para que seja possível realizar seu cálculo
+        '''
+        return self / other
 
 
 if __name__ == '__main__':
