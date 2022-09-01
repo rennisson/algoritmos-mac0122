@@ -22,7 +22,7 @@ def main():
     c5 = Complexo(-3, -4)
     print(f"Atributos: real = {c5.real} e imag = {c5.imag}")
 
-    i1 = 6
+    i1 = 10
 
     print("\nChamadas dentro de print")
     print(f"c0 = {c0}")  # chama __str__
@@ -36,9 +36,9 @@ def main():
     print(f'({c0}) + ({c1}) = {c0 + c1}')
     print(f'({c1}) * ({c2}) = {c1 * c2}')
     print(f'({c1}) - ({c2}) = {c1 - c2}')
-    print(f'{i1} * ({c1}) = {i1 * c1}')
-    print(f'({c1}) / {i1} = {c1 / i1}')
-    print(f'{i1} / ({c1}) = {i1 / c1}')
+    print(f'{i1} * ({c2}) = {i1 * c2}')
+    print(f'({c2}) / {i1} = {c2 / i1}')
+    print(f'{i1} / ({c2}) = {i1 / c2}')
 
 
 class Complexo:
@@ -146,7 +146,9 @@ class Complexo:
         Recebe dois tipos numéricos, sendo um deles um Complexo, e inverte suas posições na operação
         para que seja possível realizar seu cálculo
         '''
-        return self / other
+        real = (other * self.real) / (self.real**2 + self.imag**2)
+        imag = (other * (-self.imag)) / (self.real**2 + self.imag**2)
+        return Complexo(real, imag)
 
 
 if __name__ == '__main__':
