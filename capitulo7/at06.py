@@ -45,7 +45,6 @@ def main():
 
     print(hora1 < hora2)
 
-    '''
     t123 = Horario(1, 2, 3)
     print(f't123 = {t123} e deve ser 01:02:03')
 
@@ -63,7 +62,6 @@ def main():
 
     tf = tf - 1.2345
     print(f'tf = {tf} e deve ser 02:17:59')
-    '''
 
 
 class Horario:
@@ -112,29 +110,15 @@ class Horario:
         ''' (Horario, Horario) -> (Horario)
         Recebe dois parâmetros, self e other, e soma os dois Horarios.
         '''
+        if type(other) is int or type(other) is float:
+            other = Horario(other)
 
-        if type(other) is int:
-            seg = self.dados[0]
-            minutos = self.dados[1]
-            hora = self.dados[2] + other
-        elif type(other) is float:
-            # other = transf(other)
-            seg = self.dados[0] + other.dados[0]
-            minutos = self.dados[1] + other.dados[1]
-            hora = self.dados[2] + other.dados[2]
-        else:
-            seg = self.dados[0] + other.dados[0]
-            minutos = self.dados[1] + other.dados[1]
-            hora = self.dados[2] + other.dados[2]
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
 
-        if seg > 59:
-            minutos += seg // 60
-            seg = seg % 60
-        if minutos > 59:
-            hora += minutos // 60
-            minutos = minutos % 60
+        novo_horario = transf_segundos_horario(self_seg + other_seg)
 
-        return Horario(hora, minutos, seg)
+        return novo_horario
 
     def __radd__(self, other):
         ''' (Horario, Horario) -> (Horario) + (Horario)
@@ -145,34 +129,22 @@ class Horario:
         ''' (Horario, Horario) -> (Horario)
         Recebe dois parâmetros, self e other, e soma os dois Horarios.
         '''
+        if type(other) is int or type(other) is float:
+            other = Horario(other)
 
-        if type(other) is int:
-            seg = self.dados[0]
-            minutos = self.dados[1]
-            hora = self.dados[2] - other
-        elif type(other) is float:
-            # other = transf(other)
-            seg = self.dados[0] - other.dados[0]
-            minutos = self.dados[1] - other.dados[1]
-            hora = self.dados[2] - other.dados[2]
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
+
+        if self > other:
+            novo_horario = transf_segundos_horario(self_seg - other_seg)
         else:
-            seg = self.dados[0] - other.dados[0]
-            minutos = self.dados[1] - other.dados[1]
-            hora = self.dados[2] - other.dados[2]
+            novo_horario = transf_segundos_horario(other_seg - self_seg)
 
-        if seg > 59:
-            minutos += seg // 60
-            seg = seg % 60
-        if minutos > 59:
-            hora += minutos // 60
-            minutos = minutos % 60
-
-        return Horario(hora, minutos, seg)
+        return novo_horario
 
     def __rsub__(self, other):
         ''' (Horario, Horario) -> (Horario) - (Horario)
         '''
-        # other = transf(other)
         return self - other
 
     def __eq__(self, other):
@@ -290,7 +262,7 @@ def transf_horario_segundos(horario):
     minutos_seg = horario.dados[1] * 60  # Transforma minutos em segundos
     seg = horario.dados[0]
 
-    total_seg = horas_seg + minutos_seg + seg  # Soma o total de segundos
+    total_seg = int(horas_seg + minutos_seg + seg)  # Soma o total de segundos
 
     return total_seg
 
@@ -315,6 +287,7 @@ def transf_segundos_horario(segundos):
 #  fim da definição de todas as funções e classes
 #  chama a main
 ## =============================================================
+
 if __name__ == '__main__':
     main()
 
