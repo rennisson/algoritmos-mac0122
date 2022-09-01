@@ -36,11 +36,14 @@ def main():
     hm = h_min([h1, h2, h3])
     print(hm)
 
-    hora = transf_horario_segundos(Horario(23, 59, 59))
-    print(hora)
+    hora1 = transf_horario_segundos(Horario(23, 59, 59))
+    print(hora1)
+    hora1 = Horario(23, 59, 59)
 
-    hora = transf_segundos_horario(3600)
-    print(hora)
+    hora2 = transf_segundos_horario(3600)
+    print(hora2)
+
+    print(hora1 < hora2)
 
     '''
     t123 = Horario(1, 2, 3)
@@ -173,9 +176,14 @@ class Horario:
         return self - other
 
     def __lt__(self, other):
+        ''' (Horario, Horario) -> boolean
+        Recebe dois parametros, self e other, e compara os dois
+        para saber qual é o menor.
+        '''
         self_seg = transf_horario_segundos(self)
         other_seg = transf_horario_segundos(other)
-        if self.dados[2] < other.dados[2]:
+
+        if self_seg < other_seg:
             return True
         else:
             return False
@@ -219,6 +227,7 @@ def transf_horario_segundos(horario):
     total_seg = horas_seg + minutos_seg + seg  # Soma o total de segundos
 
     return total_seg
+
 
 def transf_segundos_horario(segundos):
     ''' (int) -> (Horario)
