@@ -30,11 +30,16 @@ def main():
 
     h1 = Horario(0, 40)
     h2 = Horario(0, 0, 30)
+    print(h2)
     h3 = Horario(50)
     print(h1, h2, h3)
     hm = h_min([h1, h2, h3])
     print(hm)
 
+    hora = transf_horario_segundos(Horario(23, 59, 59))
+    print(hora)
+
+    '''
     t123 = Horario(1, 2, 3)
     print(f't123 = {t123} e deve ser 01:02:03')
 
@@ -52,6 +57,7 @@ def main():
 
     tf = tf - 1.2345
     print(f'tf = {tf} e deve ser 02:17:59')
+    '''
 
 
 class Horario:
@@ -81,7 +87,7 @@ class Horario:
             # Caso o usuario digite um valor maior igual que 60 para os Minutos,
             # convertermos o valor para um correspondente entre 0 e 59
             minutos = minutos % 60
-        if segundos > 59:
+        if segundos >= 60:
             # Caso o usuario digite um valor maior igual que 60 para os Segundos,
             # convertermos o valor para um correspondente entre 0 e 59
             segundos = segundos % 60
@@ -106,7 +112,7 @@ class Horario:
             minutos = self.dados[1]
             hora = self.dados[2] + other
         elif type(other) is float:
-            other = transf(other)
+            # other = transf(other)
             seg = self.dados[0] + other.dados[0]
             minutos = self.dados[1] + other.dados[1]
             hora = self.dados[2] + other.dados[2]
@@ -139,7 +145,7 @@ class Horario:
             minutos = self.dados[1]
             hora = self.dados[2] - other
         elif type(other) is float:
-            other = transf(other)
+            # other = transf(other)
             seg = self.dados[0] - other.dados[0]
             minutos = self.dados[1] - other.dados[1]
             hora = self.dados[2] - other.dados[2]
@@ -160,7 +166,7 @@ class Horario:
     def __rsub__(self, other):
         ''' (Horario, Horario) -> (Horario) - (Horario)
         '''
-        other = transf(other)
+        # other = transf(other)
         return self - other
 
     def __lt__(self, other):
@@ -186,14 +192,6 @@ def h_min(seq):
     '''(list) -> Horario
     Recebe uma lista seq com um ou mais objetos do tipo Horario.
     Retorna uma referência para um objeto Horario de menor valor em seq.
-
-    Por exemplo:
-    >>> h1 = Horario(0,50)
-    >>> h2 = Horario(0,0,50)
-    >>> h3 = Horario(50)
-    >>> hm = h_min( [h1, h2, h3] )
-    >>> print(hm)
-    00:00:50
     '''
     h_menor = seq[0]
 
@@ -204,22 +202,19 @@ def h_min(seq):
     return h_menor
 
 
-def transf(x):
-    ''' (float) -> (Horario)
-    Recebe um float e transforma em Horario
+def transf_horario_segundos(horario):
+    ''' (Horario) -> int
+    Recebe um Horario e o transforma em segundos
     '''
-    hora = int(x // 1)
-    minuto = (int(x % 1) * 60)
-    segundo = 0
 
-    y = minuto
+    print(horario)
+    horas_seg = horario.dados[2] * 3600
+    minutos_seg = horario.dados[1] * 60
+    seg = horario.dados[0]
 
-    if minuto % 1 != 0:
-        minuto = int(minuto // 1)
-        segundo = int((y % 1) * 60)
+    total_seg = horas_seg + minutos_seg + seg
 
-    return Horario(hora, minuto, segundo)
-
+    return total_seg
 
 ####### ========================================================== #######
 #####
