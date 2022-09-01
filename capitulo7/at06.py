@@ -71,28 +71,34 @@ class Horario:
         ''' (int, int, int) -> None
         Chamado pelo construtor da classe.
 
-        Recebe uma lista de dados que serão referência para segundos, minutos e horas
-
+        Recebe três parâmetros (hora, minutos e segundos) e os insere em uma lista de dados.
         '''
-        self.dados = [0, 0, 0]
-
-        if hora > 23:
+        if hora >= 24:
+            # Caso o usuario digite um valor maior igual que 24 para as Horas,
+            # convertermos o valor para um correspondente entre 0 e 24
             hora = hora % 24
-        if minutos > 59:
+        if minutos >= 60:
+            # Caso o usuario digite um valor maior igual que 60 para os Minutos,
+            # convertermos o valor para um correspondente entre 0 e 59
             minutos = minutos % 60
         if segundos > 59:
+            # Caso o usuario digite um valor maior igual que 60 para os Segundos,
+            # convertermos o valor para um correspondente entre 0 e 59
             segundos = segundos % 60
 
+        self.dados = [0, 0, 0]
         self.dados[0] = segundos
         self.dados[1] = minutos
         self.dados[2] = hora
-        # print(self.dados)
 
     def __str__(self):
+        ''' (Horario) -> str
+        '''
         return f'{self.dados[2]:02}:{self.dados[1]:02}:{self.dados[0]:02}'
 
     def __add__(self, other):
-        '''
+        ''' (Horario, Horario) -> (Horario)
+        Recebe dois parâmetros, self e other, e soma os dois Horarios.
         '''
 
         if type(other) is int:
@@ -119,10 +125,14 @@ class Horario:
         return Horario(hora, minutos, seg)
 
     def __radd__(self, other):
-
+        ''' (Horario, Horario) -> (Horario) + (Horario)
+        '''
         return self + other
 
     def __sub__(self, other):
+        ''' (Horario, Horario) -> (Horario)
+        Recebe dois parâmetros, self e other, e soma os dois Horarios.
+        '''
 
         if type(other) is int:
             seg = self.dados[0]
@@ -148,6 +158,8 @@ class Horario:
         return Horario(hora, minutos, seg)
 
     def __rsub__(self, other):
+        ''' (Horario, Horario) -> (Horario) - (Horario)
+        '''
         other = transf(other)
         return self - other
 
@@ -173,7 +185,7 @@ class Horario:
 def h_min(seq):
     '''(list) -> Horario
     Recebe uma lista seq com um ou mais objetos do tipo Horario.
-    Re00:00:50torna uma referência para um objeto Horario de menor valor em seq.
+    Retorna uma referência para um objeto Horario de menor valor em seq.
 
     Por exemplo:
     >>> h1 = Horario(0,50)
@@ -193,7 +205,7 @@ def h_min(seq):
 
 
 def transf(x):
-    '''
+    ''' (float) -> (Horario)
     Recebe um float e transforma em Horario
     '''
     hora = int(x // 1)
