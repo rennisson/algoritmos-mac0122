@@ -175,6 +175,72 @@ class Horario:
         # other = transf(other)
         return self - other
 
+    def __eq__(self, other):
+        ''' (Horario, Horario) -> boolean
+        Recebe dois parametros, self e other, e compara os dois
+        para saber se são iguais.
+        '''
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
+
+        if self_seg == other_seg:
+            return True
+        else:
+            return False
+
+    def __ne__(self, other):
+        ''' (Horario, Horario) -> boolean
+        Recebe dois parametros, self e other, e compara os dois
+        para saber se são diferentes.
+        '''
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
+
+        if self_seg != other_seg:
+            return True
+        else:
+            return False
+
+    def __ge__(self, other):
+        ''' (Horario, Horario) -> boolean
+        Recebe dois parametros, self e other, e compara os dois
+        para saber se self é maior ou igual ao other.
+        '''
+
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
+
+        if self_seg >= other_seg:
+            return True
+        else:
+            return False
+
+    def __gt__(self, other):
+        ''' (Horario, Horario) -> boolean
+        Recebe dois parametros, self e other, e compara os dois
+        para saber qual é o maior.
+        '''
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
+
+        if self_seg > other_seg:
+            return True
+        else:
+            return False
+
+    def __le__(self, other):
+        ''' (Horario, Horario) -> boolean
+        Recebe dois parametros, self e other, e compara os dois
+        para saber se self é menor ou igual ao other.
+        '''
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
+
+        if self_seg <= other_seg:
+            return True
+        else:
+            return False
+
     def __lt__(self, other):
         ''' (Horario, Horario) -> boolean
         Recebe dois parametros, self e other, e compara os dois
