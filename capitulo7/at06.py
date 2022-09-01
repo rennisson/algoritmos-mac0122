@@ -39,6 +39,9 @@ def main():
     hora = transf_horario_segundos(Horario(23, 59, 59))
     print(hora)
 
+    hora = transf_segundos_horario(3600)
+    print(hora)
+
     '''
     t123 = Horario(1, 2, 3)
     print(f't123 = {t123} e deve ser 01:02:03')
@@ -170,6 +173,8 @@ class Horario:
         return self - other
 
     def __lt__(self, other):
+        self_seg = transf_horario_segundos(self)
+        other_seg = transf_horario_segundos(other)
         if self.dados[2] < other.dados[2]:
             return True
         else:
@@ -207,14 +212,25 @@ def transf_horario_segundos(horario):
     Recebe um Horario e o transforma em segundos
     '''
 
-    print(horario)
-    horas_seg = horario.dados[2] * 3600
-    minutos_seg = horario.dados[1] * 60
+    horas_seg = horario.dados[2] * 3600  # Transforma horas em segundos
+    minutos_seg = horario.dados[1] * 60  # Transforma minutos em segundos
     seg = horario.dados[0]
 
-    total_seg = horas_seg + minutos_seg + seg
+    total_seg = horas_seg + minutos_seg + seg  # Soma o total de segundos
 
     return total_seg
+
+def transf_segundos_horario(segundos):
+    ''' (int) -> (Horario)
+    Recebe um int que representa a quantidade de segundos e transforma em um tipo Horario
+    '''
+    horas = segundos // 3600  # Transforma os segundos em hora
+    segundos = segundos % 3600
+    minutos = segundos // 60  # Transforma os segundos restantes em minutos
+    segundos = segundos % 60  # Guarda os segundos que sobraram
+
+    return Horario(horas, minutos, segundos)
+
 
 ####### ========================================================== #######
 #####
