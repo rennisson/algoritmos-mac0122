@@ -1,12 +1,20 @@
-TESTE = ['ahlip', 'ala', 'sala', 'salas', 'socorrammesubinoonibusemmarrocos']
-ESPERADO = [False, True, False, True, True]
+TESTE_PALINDROMO = ['ahlip', 'ala', 'sala', 'salas', 'socorrammesubinoonibusemmarrocos']
+ESPERADO_PALINDROMO = [False, True, False, True, True]
+TESTE_FORMAT = ['()[] ([])', '([)]', '()(', ']()[']
+ESPERADO_FORMAT = [True, False, False, False]
 
 def main():
-    n = len(TESTE)
+    n = len(TESTE_PALINDROMO)
     for t in range(n):
-        s = TESTE[t]
-        r = ESPERADO[t]
+        s = TESTE_PALINDROMO[t]
+        r = ESPERADO_PALINDROMO[t]
         print(f'{s}: devolveu {palindromo(s)} e deve ser {r}')
+
+    print("\n \n")
+    for i in range(len(TESTE_FORMAT)):
+        s = TESTE_FORMAT[i]
+        r = ESPERADO_FORMAT[i]
+        print(f'"{s}": devolveu {bem_formatada(s)} e deve ser {r}')
 
 
 def palindromo(s):
@@ -27,6 +35,27 @@ def palindromo(s):
     # Se 's' for igual a 'str', retorna True
     # Se não, retorna False
     return s == str
+
+
+def bem_formatada(s):
+    '''(str) -> bool
+    Recebe uma string e verifica se está bem formatada ou não
+    '''
+    # Se o primeiro caractere for ) ou ], retorna False.
+    if s[0] in ')]':
+        return False
+
+    pilha = []
+    for i in range(len(s)):
+        if s[i] in '([':
+            pilha.append(s[i])
+
+        if (s[i] == ')' and pilha[-1] == '(') or (s[i] == ']' and pilha[-1] == '['):
+            pilha.pop()
+
+    if pilha == []:
+        return True
+    return False
 
 
 class Pilha:
