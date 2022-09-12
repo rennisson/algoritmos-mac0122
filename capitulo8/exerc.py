@@ -1,4 +1,4 @@
-TESTE = ['ahlip', 'ala', 'sala', 'salas', '“socorrammesubinoonibusemmarrocos"']
+TESTE = ['ahlip', 'ala', 'sala', 'salas', 'socorrammesubinoonibusemmarrocos']
 ESPERADO = [False, True, False, True, True]
 
 def main():
@@ -13,14 +13,28 @@ def palindromo(s):
     '''(str) -> bool
     Recebe uma string e verifica se é ou nao um palíndromo.
     '''
-    
+    pilha = Pilha()
+
+    # Empilhando os caracteres de S em 'pilha'
+    for i in range(len(s)):
+        pilha.empilhe(s[i])
+
+    str = ''
+    # Desempilhando os caracteres de 'pilha' e guardando em 'str'
+    for i in range(len(pilha)):
+        str += pilha.desempilhe()
+
+    # Se 's' for igual a 'str', retorna True
+    # Se não, retorna False
+    return s == str
+
 
 class Pilha:
     def __init__(self):
         ''' (Pilha) -> None
         Inicializa um objeto da classe Pilha.
         '''
-        self.dados == []
+        self.dados = []
 
     def __len__(self):
         '''(Pilha) -> int
