@@ -38,7 +38,7 @@ class Array2D:
         shape: tupla que armazena as dimensões da matriz
         size : número total de elementos da matriz
         '''
-        nl, nc = shape
+        nl, nc = shape  # nº de linhas e colunas da matriz
         self.shape = shape
         self.dtype = type(val)
         self.size = nl * nc
@@ -59,9 +59,12 @@ class Array2D:
         >>> print( a[1,1] )
         -1
         '''
-        lin, col = key
-        nlin, ncol = self.shape
-        return self.data[lin * ncol + col]
+        lin, col = key  # lin e col recebem o nº da linha e coluna, respectivamente, onde o item está localizado
+        nlin, ncol = self.shape  # nº de linhas e colunas da matriz
+
+        # [(lin * ncol) + col] nos permite encontrar o indice certo do item procurado dentro da lista
+        # Faça o teste para qualquer matriz
+        return self.data[(lin * ncol) + col]
 
     # ---------------------------------------------------------------
     def __setitem__(self, key, valor):
@@ -83,7 +86,7 @@ class Array2D:
 
         lin, col = key
         nlin, ncol = self.shape
-        self.data[lin * ncol + col] = valor
+        self.data[(lin * ncol) + col] = valor
 
     # ---------------------------------------------------------------
     def __str__(self):
@@ -95,7 +98,7 @@ class Array2D:
         nlin, ncol = self.shape
         for k in range(self.size):
             s += f"{self.data[k]} "
-            if (k + 1) % ncol == 0:
+            if (k + 1) % ncol == 0:  # se o indice for multiplo de ncol (o ultimo elemento da linha), quebra a linha
                 s += "\n"
         return s[:-1]  # remove último \n
 
@@ -104,17 +107,20 @@ class Array2D:
 
     def copy(self):
         ''' Array2D --> Array2D
+        Recebe um Array2D e retorna uma cópia dele.
         '''
-        aux = Array2D(self.shape)
-        aux.data = self.data[:]
+        aux = Array2D(self.shape)  # Cria um Array2D auxiliar (nulo) com o mesmo shape de self
+        aux.data = self.data[:]  # Copia todos os elementos de self e cola em aux
         return aux
 
     def reshape(self, tupla):
 
         '''Array2D, tupla --> Array2D
+        Recebe um Array2D e retorna uma nova referência a ele, contendo o mesmo valores mas alterando o shape
+        informado em 'tupla'
         '''
-        aux = Array2D(tupla)
-        aux.data = self.data
+        aux = Array2D(tupla)  # Cria um Array2D com o shape passado dentro de 'tupla'
+        aux.data = self.data  # Cria uma nova referência à self mas com um novo shape
         return aux
 
     def carregue_vista(self, lista):
@@ -131,14 +137,20 @@ class Array2D:
 
     def flipV(self):
         '''ARRAY2d --> Array2D
+        Recebe um Array2D e retorna um novo Array2D com as linhas 'giradas em 180º' em torno do eixo horizontal
         '''
-        s = []
+        s = []  # Inicia uma lista vazia
         nlin, ncol = self.shape
+
+        # (self.size - ncol) índice do primeiro elemento de cada linha
+        # Passo (-ncol): pula de uma linha para outra dentro da matriz
         for i in range(self.size - ncol, -1, -ncol):
+            # (i + ncol) percorre todos os elementos de cada linha iniciada em i
             for k in range(i, i + ncol):
                 s.append(self.data[k])
-        ar2d = Array2D(self.shape)
-        ar2d.carregue_copia(s)
+
+        ar2d = Array2D(self.shape)  # Criar um Array2D com shape = self.shape
+        ar2d.carregue_copia(s)  # ar2d carrega uma cópia da lista criada com a nova ordenação da matriz
 
         return ar2d
 
@@ -147,8 +159,12 @@ class Array2D:
 
 def flipH(ar):
     ''' Array2D -> None
+    Recebe um Array2D e 'gira em 180º' em torno do eixo vertical da matriz, alterando o próprio Array2D.
     '''
-    s = []
     nlin, ncol = ar.shape
+
+    # Passo (ncol) está aí para 'fatiar' as linhas da lista
     for i in range(0, ar.size + 1, ncol):
+        # [i:i + ncol] percorre os elementos de cada linha
+        # [i:i + ncol][::-1] inverte os elementos de cada linha
         ar.data[i:i + ncol] = ar.data[i:i + ncol][::-1]
