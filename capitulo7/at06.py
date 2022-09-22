@@ -63,6 +63,13 @@ def main():
     tf = tf - 1.2345
     print(f'tf = {tf} e deve ser 02:17:59')
 
+    h123 = Horario(1, 2, 3)
+    h345 = Horario(3, 4, 5)
+    print(h345 - h123)
+    print(h123 + h345)
+    print(h345 - 1)
+    print(1 + h123)
+
 
 class Horario:
     '''Classe utilizada para representar um horário.

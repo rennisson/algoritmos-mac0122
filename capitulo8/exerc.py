@@ -10,7 +10,8 @@ def main():
         r = ESPERADO_PALINDROMO[t]
         print(f'{s}: devolveu {palindromo(s)} e deve ser {r}')
 
-    print("\n \n")
+    print()
+
     for i in range(len(TESTE_FORMAT)):
         s = TESTE_FORMAT[i]
         r = ESPERADO_FORMAT[i]
